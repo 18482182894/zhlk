@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache, must-revalidate" />
+    <meta http-equiv="Expires" content="0" />
+	<title>实时监控</title>
+</head>
+<style type="text/css" media="screen">
+	@charset "utf-8";
+	/* CSS Document */
+	/* CSS Document */
+	html,body{
+	    font-size: 14px;
+	}
+	body, div, span, h1, h2, h3, h4, h5, h6, p, em, img, strong, b, small, u, i, center, dl, dt, dd, ol, ul, li, sub, sup, tt, var, del, dfn, ins, kbd, q, s, samp, strike, applet, object, iframe, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, blockquote, pre, a, abbr, acronym, address, big, cite, code, mark, audio, video, input, textarea, select {
+	    margin: 0;
+	    padding: 0;
+	    font-family: Microsoft YaHei;
+	}
+
+	ol, ul {
+	    list-style: none;
+	}
+
+	* {
+	    padding: 0px;
+	    margin: 0px;
+	}
+	body {
+	    margin: 0px auto;
+	    font-size: .75rem;
+	    font-family: Microsoft YaHei;
+	    color: #333333;
+	    position: relative;
+	    
+	}
+	/*a 链接*/
+	body a {
+	    text-decoration: none;
+	    outline: none;
+	    color: #333333;
+	    background: #fff;
+	    -webkit-tap-highlight-color: rgba(255,0,0,0); /*清除手机端点击默认样式*/
+	}
+
+	em,i{
+	    font-style: normal;
+	}
+
+	img {
+	    border: none;
+	    vertical-align: middle;
+	}
+	button{cursor: pointer;}
+	input,textarea,select {
+	    outline: none;
+	    background: #fff;
+	    font-family: "微软雅黑";
+	}
+	.clear{
+	    clear: both;
+	}
+	input[type="button"], input[type="submit"], input[type="reset"] { /*清除iphone默认样式*/
+	    -webkit-appearance: none;
+	}
+	input:-internal-autofill-previewed, input:-internal-autofill-selected, textarea:-internal-autofill-previewed, textarea:-internal-autofill-selected, select:-internal-autofill-previewed, select:-internal-autofill-selected{
+	    background: none!important;
+	}
+	input::-webkit-outer-spin-button,input::-webkit-inner-spin-button {
+	    -webkit-appearance: none;
+	}
+	input[type="number"] {
+	    -moz-appearance: textfield;
+	}
+
+	input[type="checkbox"]{
+	    width: 1.1875rem;
+	    height: 1.1875rem;
+	    vertical-align: middle;
+	}
+	  .bottom-div{
+	    /*width: 50%;*/
+	    background-color: rgb(207,170,82);
+	    border-radius: 5px;
+	    color: white;
+	    height: 30px;
+	    line-height: 30px;
+	    text-align: center;
+	    margin-top: 20px;
+	    font-weight: bold;
+	    cursor: pointer;
+	  }
+	  .use-div{
+	  	box-sizing: border-box;
+	  }
+	  .plugin{
+	  	width: 100%;
+	  	height: 100%;
+	  	display: inline-block;
+	    vertical-align: middle;
+	  }
+	  .text-div{
+	    /*width: 60%;*/
+	   	margin-top: 20px;
+	    font-weight: bold;
+	  }
+	  .add-minus{
+	    display: flex;
+	    justify-content: space-around;
+	    margin-top: 10px;
+	    font-weight: bold;
+	  }
+	  .add-icon{
+	    width: 30%;
+	    display: flex;
+	    flex-direction: row;
+	    justify-content: center;
+	    align-items: center;
+	  }
+	  .add-icon img{
+	  	width: 13px;
+	  	height: 13px;
+	  }
+	  .btn-div{
+	    display: inline-block;
+	    width: 200px;
+	    margin-left: 10px;
+	    vertical-align: middle;
+	  }
+	  .tittle-div{
+	    background-color: rgb(149,201,62);
+	    color: white;
+	    border-radius: 5px;
+	    height: 30px;
+	    width: 100%;
+	    text-align: center;
+	    line-height: 30px;
+	    font-size: 15px;
+	  }
+</style>
+<body>
+    <div class="use-div">
+        <div class="plugin"  id="divPlugin">
+            <!-- <img src="../../../static/images/video-pic.jpg" alt=""> -->
+        </div>
+    </div>
+</body>
+<script src="../js/jquery-1.7.1.min.js" type="text/javascript" charset="utf-8" ></script>
+<script src="../js/layer-v3.0.3/layer/layer.js" type="text/javascript" ></script>
+<script src="../js/webVideoCtrl_WIN32/webVideoCtrl_win32.js" type="text/javascript" charset="utf-8" ></script>
+<script type="text/javascript" charset="utf-8" >
+		// 全局保存当前选中窗口
+		var g_iWndIndex = 0; //可以不用设置这个变量，有窗口参数的接口中，不用传值，开发包会默认使用当前选择窗口
+	$(function () {
+        var num=document.URL.indexOf("?") ;
+        var id=document.URL.substr(num+4);
+	    console.log(id);
+		var oLiveView=JSON.parse(window.parent.$('#'+id).val());
+	    console.log(JSON.parse(window.parent.$('#'+id).val()));
+	    var oPlugin = {
+	        iWidth: window.parent.$('.register-img').eq(0).width(),             // plugin width
+	        iHeight: window.parent.$('.register-img').eq(0).height()           // plugin height
+        };
+        $('.use-div').eq(0).css('width',window.parent.$('.register-img').eq(0).width());
+        $('.use-div').eq(0).css('height',window.parent.$('.register-img').eq(0).height());
+	    // 检查插件是否已经安装过
+	    var iRet = WebVideoCtrl.I_CheckPluginInstall();
+	    if (-1 == iRet) {
+			alert("您还未安装过插件，双击开发包目录里的WebComponents.exe安装！");
+			// layer.confirm('您还未安装过插件，请点击确定下载插件并安装！', {
+			// 	btn: ['确定'] //按钮
+			// }, function(){
+			// });
+	        return;
+	    }
+	    // var oLiveView = {
+	    //     iProtocol: 1,            // protocol 1：http, 2:https
+	    //     szIP: "192.168.188.241",    // protocol ip
+	    //     szPort: "80",            // protocol port
+	    //     szUsername: "admin",     // device username
+	    //     szPassword: "12345", // device password
+	    //     iStreamType: 1,          // stream 1：main stream  2：sub-stream  3：third stream  4：transcode stream
+	    //     iChannelID: 1,           // channel no
+	    //     bZeroChannel: false      // zero channel
+	    // };
+	    
+	    // 初始化插件参数及插入插件
+	    WebVideoCtrl.I_InitPlugin(oPlugin.iWidth, oPlugin.iHeight, {
+	        bWndFull: true,//是否支持单窗口双击全屏，默认支持 true:支持 false:不支持
+	        iWndowType: 1,
+	        cbEvent : function (a,b,c) {
+	            console.log(a)
+	            console.log(b)
+	            console.log(c)
+	        }
+	    });
+	    WebVideoCtrl.I_InsertOBJECTPlugin("divPlugin");
+        // 检查插件是否最新 
+        if (-1 == WebVideoCtrl.I_CheckPluginVersion()) {
+            alert("检测到新的插件版本，双击开发包目录里的WebComponentsKit.exe升级！");
+            return;
+        }
+
+        // 登录设备
+        WebVideoCtrl.I_Login(oLiveView.szIP, oLiveView.iProtocol, oLiveView.szPort, oLiveView.szUsername, oLiveView.szPassword, {
+            success: function (xmlDoc) {
+            	console.log(2222)
+                // 开始预览
+                var szDeviceIdentify = oLiveView.szIP ;
+                setTimeout(function () {
+                    WebVideoCtrl.I_StartRealPlay(szDeviceIdentify, {//预览
+                        iStreamType: oLiveView.iStreamType,
+                        iChannelID: oLiveView.iChannelID,
+                        bZeroChannel: oLiveView.bZeroChannel
+                    });
+                }, 1000);
+            },
+	        error: function (status, xmlDoc) {
+	            console.log( " 登录失败！")
+	        }
+        });
+
+
+	    function closeCamera() {//退出登录
+	        WebVideoCtrl.I_Logout(oLiveView.szIP);
+	    }
+	    // 关闭浏览器
+	    $(window).unload(function () {
+	        WebVideoCtrl.I_Stop();
+	    });
+	});
+
+
+
+</script>
+</html>

@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>硬盘录像机</title>
+	<script src="../js/My97DatePicker/WdatePicker.js" type="text/javascript" ></script>
+</head>
+<style type="text/css" >
+	@charset "utf-8";
+	/* CSS Document */
+	/* CSS Document */
+	html,body{
+	    font-size: 14px;
+	}
+	body, div, span, h1, h2, h3, h4, h5, h6, p, em, img, strong, b, small, u, i, center, dl, dt, dd, ol, ul, li, sub, sup, tt, var, del, dfn, ins, kbd, q, s, samp, strike, applet, object, iframe, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, blockquote, pre, a, abbr, acronym, address, big, cite, code, mark, audio, video, input, textarea, select {
+	    margin: 0;
+	    padding: 0;
+	    font-family: Microsoft YaHei;
+	}
+
+	ol, ul {
+	    list-style: none;
+	}
+
+	* {
+	    padding: 0px;
+	    margin: 0px;
+	}
+	body {
+	    margin: 0px auto;
+	    font-size: .75rem;
+	    font-family: Microsoft YaHei;
+	    color: #333333;
+	    position: relative;
+	    
+	}
+	/*a 链接*/
+	body a {
+	    text-decoration: none;
+	    outline: none;
+	    color: #333333;
+	    background: #fff;
+	    -webkit-tap-highlight-color: rgba(255,0,0,0); /*清除手机端点击默认样式*/
+	}
+
+	em,i{
+	    font-style: normal;
+	}
+
+	img {
+	    border: none;
+	    vertical-align: middle;
+	}
+	button{cursor: pointer;}
+	input,textarea,select {
+	    outline: none;
+	    background: #fff;
+	    font-family: "微软雅黑";
+	}
+	.clear{
+	    clear: both;
+	}
+	input[type="button"], input[type="submit"], input[type="reset"] { /*清除iphone默认样式*/
+	    -webkit-appearance: none;
+	}
+	input:-internal-autofill-previewed, input:-internal-autofill-selected, textarea:-internal-autofill-previewed, textarea:-internal-autofill-selected, select:-internal-autofill-previewed, select:-internal-autofill-selected{
+	    background: none!important;
+	}
+	input::-webkit-outer-spin-button,input::-webkit-inner-spin-button {
+	    -webkit-appearance: none;
+	}
+	input[type="number"] {
+	    -moz-appearance: textfield;
+	}
+
+	input[type="checkbox"]{
+	    width: 1.1875rem;
+	    height: 1.1875rem;
+	    vertical-align: middle;
+	}
+	.diskVideo{
+		height: 600px;
+	}
+	.plugin{
+		height: 600px;
+	}
+	.console-top{
+		height: 40px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+	.console-top img{
+		margin:0 10px; 
+	}
+
+	.check-div{
+		width: 20%;
+		/*height: 150px;*/
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		flex-wrap: wrap;
+		justify-content: center;
+		margin-top: 10px;
+		position: relative;
+
+	}
+	.check-div img{
+		width: 134px;
+		height: 137px;
+	}
+	.check-div .console{
+		width: 134px;
+		height: 137px;
+		position: absolute;
+		left: 50%;
+		top: 0;
+		margin-left: -67px;
+		display: flex;
+		flex-wrap: wrap;
+	    align-content: space-between;
+	}
+	.console .console-col{
+		width: 25px;
+		height: 25px;
+		/*background: red;*/
+	}
+	.console .console-row{
+		display: flex;
+		justify-content: space-between;
+		width: 100%;
+	}
+	.console-btn{
+		cursor: pointer;
+	}
+	.console-bottom{
+		display:flex;
+	}
+	.add-minus{
+		width: 100%;
+		display: flex;
+		justify-content: space-around;
+		font-size: 14px;
+		/*font-weight: bold;*/
+	}
+	.add-icon{
+		width: 30%;
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+	}
+	.add-icon img{
+		width: 20px;
+		height: 20px;
+	}	
+	.input-text{
+	    width:72%;
+	    height:2rem;
+	    box-sizing: border-box;
+	    border-radius:.25rem;
+	    border:1px solid rgba(185,185,185,1);
+	    padding-left: .625rem;
+	    vertical-align: middle;
+	}
+
+	.bottom-div{
+		width: 40%;
+        background-color: rgb(207,170,82);
+        border: 0;
+		border-radius: 5px;
+		color: white;
+		height: 30px;
+		line-height: 30px;
+		text-align: center;
+		margin: 10px 4%;
+		font-weight: bold;
+    }
+    .console-way .bottom-div{
+		width: 40%;
+        min-width: 46px;
+    }
+    
+    .searchdiv
+    {
+        width: 100%;
+        height:140px;
+        overflow-y:auto;
+        overflow-x:auto;
+        border:1px solid #7F9DB9;
+        font-size:11px;
+    }
+    .searchlist th, .searchlist td
+    {
+        padding:2px;
+        border:1px solid #7F9DB9;
+        border-collapse:collapse;
+        white-space:nowrap;
+    }
+    .console-way .console-top-left{
+        display: flex;
+        align-items: center;
+        white-space: nowrap;
+        width: 100%;
+    }
+    .console-way .console-top-right{
+        display: flex;
+        align-items: center;
+        white-space: nowrap;
+        width: 100%;
+    }
+    .console-top .input-text{
+        width: 150%;
+    }
+</style>
+<body>
+	<div class="diskVideo">
+        <div class="plugin"  id="divPlugin"></div>
+        <div class="diskVideo-console">
+        	<div class="console-top">
+        		<div class="console-top-left">        			
+					<img src="../../../static/images/camera10.png" onclick="changeWndNum(1);" alt="1">
+					<img src="../../../static/images/camera9.png" onclick="changeWndNum(2);" alt="2*2">
+					<img src="../../../static/images/camera8.png" onclick="changeWndNum(3);" alt="3*3">
+					<img src="../../../static/images/camera2.png" onclick="changeWndNum(4);" alt="4*4">
+        		</div>
+        		<div class="console-top-right">							
+					<img src="../../../static/images/camera7.png" alt="停止全部预览" onclick="clickStopRealPlay();">
+					<img src="../../../static/images/camera6.png" alt="抓图" onclick="clickCapturePic();">
+					<img src="../../../static/images/camera5.png" alt="录像" onclick="videotape(this);">
+					<img src="../../../static/images/camera11.png" alt="电子放大" onclick="clickEnableEZoom();">
+					<img src="../../../static/images/camera4.png" alt="上一页" onclick="lastPage()">
+					<img src="../../../static/images/camera3.png" alt="下一页" onclick="nextPage()">
+					<img src="../../../static/images/camera1.png" alt="全屏" onclick="clickFullScreen();" >
+        		</div>
+            </div>
+        	<div class="console-top console-way">
+                <div class="console-top-left"> 
+                    抓图保存路径:
+                    <input id="previewPicPath" type="text" class="input-text" />
+                    <input type="button" class="bottom-div" value="浏览" onclick="clickOpenFileDlg('previewPicPath', 0);" />
+                    <input type="button" class="bottom-div" value="设置" onclick="clickSetLocalCfg();" />
+                </div>
+        		<div class="console-top-right">	
+                    录像文件保存路径:
+                    <input id="recordPath" type="text" class="input-text"  />
+                    <input type="button" class="bottom-div" value="浏览" onclick="clickOpenFileDlg('recordPath', 0);" />
+                    <input type="button" class="bottom-div" value="设置" onclick="clickSetLocalCfg();" />
+                </div>
+        		<div class="console-top-right">	
+                    回放下载保存路径:
+                    <input id="downloadPath" type="text" class="input-text"  />
+                    <input type="button" class="bottom-div" value="浏览" onclick="clickOpenFileDlg('downloadPath', 0);" />
+                    <input type="button" class="bottom-div" value="设置" onclick="clickSetLocalCfg();" />
+                </div>
+            </div>
+        	<div class="console-bottom">
+				<div class="check-div">
+					<img src="../images/monitor-kz.jpg" alt="">
+					<div class="console">
+						<div class="console-row">
+							<div class="console-col"></div>
+							<div class="console-col"></div>
+							<div class="console-col console-btn" onmousedown="mouseDownPTZControl(1);" onmouseup="mouseUpPTZControl();" ></div>
+							<div class="console-col"></div>
+							<div class="console-col"></div>
+						</div>
+						<div class="console-row">
+							<div class="console-col"></div>
+							<div class="console-col console-btn" onmousedown="mouseDownPTZControl(5);" onmouseup="mouseUpPTZControl();" ></div>
+							<div class="console-col"></div>
+							<div class="console-col console-btn" onmousedown="mouseDownPTZControl(7);" onmouseup="mouseUpPTZControl();" ></div>
+							<div class="console-col"></div>
+						</div>
+						<div class="console-row">
+							<div class="console-col console-btn" onmousedown="mouseDownPTZControl(3);" onmouseup="mouseUpPTZControl();" ></div>
+							<div class="console-col"></div>
+							<div class="console-col console-btn" onclick="mouseDownPTZControl(9);" ></div>
+							<div class="console-col"></div>
+							<div class="console-col console-btn" onmousedown="mouseDownPTZControl(4);" onmouseup="mouseUpPTZControl();" ></div>
+						</div>
+						<div class="console-row">
+							<div class="console-col"></div>
+							<div class="console-col console-btn" onmousedown="mouseDownPTZControl(6);" onmouseup="mouseUpPTZControl();" ></div>
+							<div class="console-col"></div>
+							<div class="console-col console-btn" onmousedown="mouseDownPTZControl(8);" onmouseup="mouseUpPTZControl();" ></div>
+							<div class="console-col"></div>
+						</div>
+						<div class="console-row">
+							<div class="console-col"></div>
+							<div class="console-col"></div>
+							<div class="console-col console-btn" onmousedown="mouseDownPTZControl(2);" onmouseup="mouseUpPTZControl();"></div>
+							<div class="console-col"></div>
+							<div class="console-col"></div>
+						</div>
+					</div>
+				</div>
+				<div class="check-div" style="width: 15%;">					
+					<div class="add-minus">
+					  	<div class="add-icon" onmousedown="PTZZoomIn()" onmouseup="PTZZoomStop()"><img src="../images/monitor-add.png" alt=""></div>
+					    <span>变倍</span>
+					    <div class="add-icon"  onmousedown="PTZZoomout()" onmouseup="PTZZoomStop()"><img src="../images/monitor-minus.png" alt=""></div>
+				    </div>
+				    <div class="add-minus">
+				      	<div class="add-icon" onmousedown="PTZFocusIn()" onmouseup="PTZFoucusStop()"><img src="../images/monitor-add.png" alt=""></div>
+					        <span>变焦</span>
+				        <div class="add-icon" onmousedown="PTZFoucusOut()" onmouseup="PTZFoucusStop()"><img src="../images/monitor-minus.png" alt=""></div>
+			        </div>
+			        <div class="add-minus">
+			          	<div class="add-icon"onmousedown="PTZIrisIn()" onmouseup="PTZIrisStop()"><img src="../images/monitor-add.png" alt=""></div>
+			            <span>光圈</span>
+			            <div class="add-icon" onmousedown="PTZIrisOut()" onmouseup="PTZIrisStop()"><img src="../images/monitor-minus.png" alt=""></div>
+		            </div>
+				</div>
+				<div class="check-div"  style="width: 20%;">
+					<p>开始时间：<input type="text" class="input-text Wdate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" id="startDate"></p>
+					<p>结束时间：<input type="text" class="input-text Wdate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" id="endDate"></p>
+					
+            		<div class="bottom-div" onclick="clickRecordSearch(0,2);" >搜索</div>
+            		<div class="bottom-div" onclick="clickRecordSearch(0,1);" >主码流</div>
+				</div>
+				<div class="check-div"  style="width: 40%;">
+                    <div id="searchdiv" class="searchdiv">
+                        <table id="searchlist" class="searchlist" cellpadding="0" cellspacing="0" border="0"></table>
+                    </div>
+				</div>
+        	</div>
+        </div>
+	</div>	
+</body>
+<script src="../js/jquery-1.7.1.min.js" type="text/javascript" charset="utf-8" ></script>
+<script src="../js/layer-v3.0.3/layer/layer.js" type="text/javascript" ></script>
+<script src="../js/webVideoCtrl_WIN32/webVideoCtrl_win32.js" type="text/javascript" charset="utf-8" ></script>
+<script type="text/javascript" charset="utf-8" >
+	
+	console.log(document.body.offsetWidth);
+
+		// 全局保存当前选中窗口
+		var g_iWndIndex = 0; //可以不用设置这个变量，有窗口参数的接口中，不用传值，开发包会默认使用当前选择窗口
+        var ChannelList=JSON.parse(window.parent.$('#message').val()).ChannelList;//通道列表
+        var videoChannelList=[];//当前通道列表
+        var PageCount=1;//总页数
+		var channelPage=0;//当前页数
+		var iType=3;//窗口风格数   1为1*1，2为2*2...
+		var oLiveView=JSON.parse(window.parent.$('#message').val());//获取父窗口数据
+	    console.log(JSON.parse(window.parent.$('#message').val()));
+	    console.log(ChannelList);
+
+	    var oPlugin = {
+	        iWidth: document.body.offsetWidth,             // plugin width
+	        iHeight: 600             // plugin height
+	    };
+
+
+    // 窗口分割数
+	function changeWndNum(type) {
+	    iType = parseInt(type, 10);
+        recombinationArrByNum(iType,ChannelList);
+        channelPage=0;
+        WebVideoCtrl.I_ChangeWndNum(type);
+        for (let i = 0; i < type*type; i++) {
+            var oWndInfo = WebVideoCtrl.I_GetWindowStatus(i);
+            if (oWndInfo != null) {// 已经在播放了，先停止
+                WebVideoCtrl.I_Stop();
+            }
+        }
+        StartRealPlay();
+	}
+		
+    // 抓图
+	function clickCapturePic() {
+	    var oWndInfo = WebVideoCtrl.I_GetWindowStatus(g_iWndIndex),
+	        szInfo = "";
+
+	    if (oWndInfo != null) {
+	        var xmlDoc = WebVideoCtrl.I_GetLocalCfg();
+	        var szCaptureFileFormat = "0";
+	        if (xmlDoc != null) {
+	            szCaptureFileFormat = $(xmlDoc).find("CaptureFileFormat").eq(0).text();
+	        }
+
+	        var szChannelID = parseInt(videoChannelList[channelPage][g_iWndIndex].channelNo, 10);
+	        var szPicName = oWndInfo.szDeviceIdentify + "_" + szChannelID + "_" + new Date().getTime();
+	        
+	        szPicName += ("0" === szCaptureFileFormat) ? ".jpg": ".bmp";
+
+	        var iRet = WebVideoCtrl.I_CapturePic(szPicName);
+	        if (0 == iRet) {
+	            szInfo = "抓图成功！";
+	        	layer.msg('抓图已保存在 '+$('#previewPicPath').val()?$('#previewPicPath').val():'C:\Users\用户名\Web\CaptureFiles'+' 路径下',{offset:'b'});
+	        } else {
+	            szInfo = "抓图失败！";
+	        	layer.msg(szInfo,{offset:'b'});
+	        }
+	        
+
+	    }
+	}
+	// 开始录像
+	var g_szRecordType = "";
+	function clickStartRecord(szType) {
+	    var oWndInfo = WebVideoCtrl.I_GetWindowStatus(g_iWndIndex),
+	        szInfo = "";
+
+	    g_szRecordType = szType;
+
+	    if (oWndInfo != null) {
+	        var szChannelID = parseInt(videoChannelList[channelPage][g_iWndIndex].channelNo, 10),
+	            szFileName = oWndInfo.szIP  + "_" + szChannelID + "_" + new Date().getTime();
+
+	        var condition=WebVideoCtrl.I_StartRecord(szFileName);
+            if (condition==0) {
+                if ('realplay' === szType) {
+                    szInfo = "开始录像成功！";
+                } else if ('playback' === szType) {
+                    szInfo = "开始剪辑成功！";
+                }
+                layer.msg(oWndInfo.szIP  + " " + szInfo,{offset:'b'});                
+            }else{
+                if ('realplay' === szType) {
+                    szInfo = "开始录像失败！";
+                } else if ('playback' === szType) {
+                    szInfo = "开始剪辑失败！";
+                }
+                layer.msg(oWndInfo.szIP  + " " + szInfo,{offset:'b'});
+            }
+	    }
+	}
+
+	// 停止录像
+	function clickStopRecord(szType, iWndIndex) {
+	    if ("undefined" === typeof iWndIndex) {
+	        iWndIndex = g_iWndIndex;
+	    }
+	    var oWndInfo = WebVideoCtrl.I_GetWindowStatus(iWndIndex),
+	        szInfo = "";
+
+	    if (oWndInfo != null) {
+	        var condition=WebVideoCtrl.I_StopRecord();
+            
+            if (condition==0) {
+                if ('realplay' === szType) {
+                    szInfo = "停止录像成功！";
+                } else if ('playback' === szType) {
+                    szInfo = "停止剪辑成功！";
+                }
+                layer.msg(oWndInfo.szIP  + " " + szInfo,{offset:'b'});              
+            }else{
+                if ('realplay' === szType) {
+                    szInfo = "停止录像失败！";
+                } else if ('playback' === szType) {
+                    szInfo = "停止剪辑失败！";
+                }
+                layer.msg(oWndInfo.szIP  + " " + szInfo,{offset:'b'});
+            }
+	    }
+    }
+    
+    // 启用电子放大
+    function clickEnableEZoom() {
+        var oWndInfo = WebVideoCtrl.I_GetWindowStatus(g_iWndIndex),
+            szInfo = "";
+
+        if (oWndInfo != null) {
+            var iRet = WebVideoCtrl.I_EnableEZoom();
+            if (0 == iRet) {
+                szInfo = "启用电子放大成功！";
+            } else {
+                szInfo = "启用电子放大失败！";
+            }
+            layer.msg(oWndInfo.szIP + " " + szInfo,{offset:'b'});
+        }
+    }
+
+    // 禁用电子放大
+    function clickDisableEZoom() {
+        var oWndInfo = WebVideoCtrl.I_GetWindowStatus(g_iWndIndex),
+            szInfo = "";
+
+        if (oWndInfo != null) {
+            var iRet = WebVideoCtrl.I_DisableEZoom();
+            if (0 == iRet) {
+                szInfo = "禁用电子放大成功！";
+            } else {
+                szInfo = "禁用电子放大失败！";
+            }
+            layer.msg(oWndInfo.szIP + " " + szInfo,{offset:'b'});
+        }
+    }
+
+    
+    //上一页
+    function lastPage() {
+        if (channelPage>0) {
+            clickStopRealPlay();
+            channelPage--;
+	        console.log('点击上一页：'+JSON.stringify(videoChannelList[channelPage]));
+            StartRealPlay();
+        }else{
+            layer.msg('已经是第一页',{offset:'b'});
+        }
+    }
+
+    //下一页
+    function nextPage() {
+        console.log(channelPage)
+        console.log(PageCount)
+        console.log((channelPage+1)<PageCount)
+        console.log(JSON.stringify(ChannelList))
+        if ((channelPage+1)<PageCount) {
+            clickStopRealPlay();
+            channelPage++;
+	        console.log('点击下一页：'+JSON.stringify(videoChannelList[channelPage]));
+            StartRealPlay();
+        }else{
+            layer.msg('已经是最后一页',{offset:'b'});
+        }
+    }
+
+    // 全屏
+    function clickFullScreen() {
+        WebVideoCtrl.I_FullScreen(true);
+    }
+
+	function videotape(e) {
+		console.log($(e).attr('alt'));
+		if ($(e).attr('alt')=='录像') {
+            $(e).attr('alt','停止')
+			clickStartRecord('realplay');
+		}else{
+            $(e).attr('alt','录像')
+			clickStopRecord('realplay');
+		}
+		
+	}
+	
+	//云台控制
+		function PTZZoomIn() {
+		    var oWndInfo = WebVideoCtrl.I_GetWindowStatus(g_iWndIndex);
+
+		    if (oWndInfo != null) {
+		        WebVideoCtrl.I_PTZControl(10, false, {
+		            iWndIndex: g_iWndIndex,
+		            success: function (xmlDoc) {
+		                console.log(oWndInfo.szIP + " 调焦+成功！");
+		            },
+		            error: function () {
+		                console.log(oWndInfo.szIP + "  调焦+失败！");
+		            }
+		        });
+		    }
+		}
+
+		function PTZZoomout() {
+		    var oWndInfo = WebVideoCtrl.I_GetWindowStatus(g_iWndIndex);
+
+		    if (oWndInfo != null) {
+		        WebVideoCtrl.I_PTZControl(11, false, {
+		            iWndIndex: g_iWndIndex,
+		            success: function (xmlDoc) {
+		                console.log(oWndInfo.szIP + " 调焦-成功！");
+		            },
+		            error: function () {
+		                console.log(oWndInfo.szIP + "  调焦-失败！");
+		            }
+		        });
+		    }
+		}
+
+		function PTZZoomStop() {
+		    var oWndInfo = WebVideoCtrl.I_GetWindowStatus(g_iWndIndex);
+
+		    if (oWndInfo != null) {
+		        WebVideoCtrl.I_PTZControl(11, true, {
+		            iWndIndex: g_iWndIndex,
+		            success: function (xmlDoc) {
+		                console.log(oWndInfo.szIP + " 调焦停止成功！");
+		            },
+		            error: function () {
+		                console.log(oWndInfo.szIP + "  调焦停止失败！");
+		            }
+		        });
+		    }
+		}
+
+		function PTZFocusIn() {
+		    var oWndInfo = WebVideoCtrl.I_GetWindowStatus(g_iWndIndex);
+
+		    if (oWndInfo != null) {
+		        WebVideoCtrl.I_PTZControl(12, false, {
+		            iWndIndex: g_iWndIndex,
+		            success: function (xmlDoc) {
+		                console.log(oWndInfo.szIP + " 聚焦+成功！");
+		            },
+		            error: function () {
+		                console.log(oWndInfo.szIP + "  聚焦+失败！");
+		            }
+		        });
+		    }
+		}
+
+		function PTZFoucusOut() {
+		    var oWndInfo = WebVideoCtrl.I_GetWindowStatus(g_iWndIndex);
+
+		    if (oWndInfo != null) {
+		        WebVideoCtrl.I_PTZControl(13, false, {
+		            iWndIndex: g_iWndIndex,
+		            success: function (xmlDoc) {
+		                console.log(oWndInfo.szIP + " 聚焦-成功！");
+		            },
+		            error: function () {
+		                console.log(oWndInfo.szIP + "  聚焦-失败！");
+		            }
+		        });
+		    }
+		}
+
+		function PTZFoucusStop() {
+		    var oWndInfo = WebVideoCtrl.I_GetWindowStatus(g_iWndIndex);
+
+		    if (oWndInfo != null) {
+		        WebVideoCtrl.I_PTZControl(12, true, {
+		            iWndIndex: g_iWndIndex,
+		            success: function (xmlDoc) {
+		                console.log(oWndInfo.szIP + " 聚焦停止成功！");
+		            },
+		            error: function () {
+		                console.log(oWndInfo.szIP + "  聚焦停止失败！");
+		            }
+		        });
+		    }
+		}
+
+		function PTZIrisIn() {
+		    var oWndInfo = WebVideoCtrl.I_GetWindowStatus(g_iWndIndex);
+
+		    if (oWndInfo != null) {
+		        WebVideoCtrl.I_PTZControl(14, false, {
+		            iWndIndex: g_iWndIndex,
+		            success: function (xmlDoc) {
+		                console.log(oWndInfo.szIP + " 光圈+成功！");
+		            },
+		            error: function () {
+		                console.log(oWndInfo.szIP + "  光圈+失败！");
+		            }
+		        });
+		    }
+		}
+
+		function PTZIrisOut() {
+		    var oWndInfo = WebVideoCtrl.I_GetWindowStatus(g_iWndIndex);
+
+		    if (oWndInfo != null) {
+		        WebVideoCtrl.I_PTZControl(15, false, {
+		            iWndIndex: g_iWndIndex,
+		            success: function (xmlDoc) {
+		                console.log(oWndInfo.szIP + " 光圈-成功！");
+		            },
+		            error: function () {
+		                console.log(oWndInfo.szIP + "  光圈-失败！");
+		            }
+		        });
+		    }
+		}
+
+		function PTZIrisStop() {
+		    var oWndInfo = WebVideoCtrl.I_GetWindowStatus(g_iWndIndex);
+
+		    if (oWndInfo != null) {
+		        WebVideoCtrl.I_PTZControl(14, true, {
+		            iWndIndex: g_iWndIndex,
+		            success: function (xmlDoc) {
+		                console.log(oWndInfo.szIP + " 光圈停止成功！");
+		            },
+		            error: function () {
+		                console.log(oWndInfo.szIP + "  光圈停止失败！");
+		            }
+		        });
+		    }
+		}
+
+		// PTZ控制 9为自动，1,2,3,4,5,6,7,8为方向PTZ
+		var g_bPTZAuto = false;
+		function mouseDownPTZControl(iPTZIndex) {
+			var oWndInfo = WebVideoCtrl.I_GetWindowStatus(g_iWndIndex),
+				// bZeroChannel = $("#channels option").eq($("#channels").get(0).selectedIndex).attr("bZero") == "true" ? true : false,
+				iPTZSpeed = $("#ptzspeed").val(),
+				bStop = false;
+
+			// if (bZeroChannel) {// 零通道不支持云台
+			// 	return;
+			// }
+			
+			if (oWndInfo != null) {
+				if (9 == iPTZIndex && g_bPTZAuto) {
+					iPTZSpeed = 0;// 自动开启后，速度置为0可以关闭自动
+					bStop = true;
+				} else {
+					g_bPTZAuto = false;// 点击其他方向，自动肯定会被关闭
+					bStop = false;
+				}
+
+				WebVideoCtrl.I_PTZControl(iPTZIndex, bStop, {
+					iPTZSpeed: iPTZSpeed,
+					success: function (xmlDoc) {
+						if (9 == iPTZIndex) {
+							g_bPTZAuto = !g_bPTZAuto;
+						}
+						console.log(oWndInfo.szIP + " 开启云台成功！");
+					},
+					error: function () {
+						console.log(oWndInfo.szIP + " 开启云台失败！");
+					}
+				});
+			}
+		}
+
+		// 方向PTZ停止
+		function mouseUpPTZControl() {
+			var oWndInfo = WebVideoCtrl.I_GetWindowStatus(g_iWndIndex);
+
+			if (oWndInfo != null) {
+				WebVideoCtrl.I_PTZControl(1, true, {
+					success: function (xmlDoc) {
+						console.log(oWndInfo.szIP + " 停止云台成功！");
+					},
+					error: function () {
+						console.log(oWndInfo.szIP + " 停止云台失败！");
+					}
+				});
+			}
+		}
+
+
+	// 搜索录像
+	var g_iSearchTimes = 0;
+	function clickRecordSearch(iType,iStreamType) {
+		console.log(videoChannelList);
+	    var szDeviceIdentify =  oLiveView.szIP,
+	        iChannelID = parseInt(videoChannelList[channelPage][g_iWndIndex].channelNo, 10),
+	        iStreamType = parseInt(iStreamType, 10),
+	        szStartTime = $("#startDate").val(),
+	        szEndTime = $("#endDate").val();
+	        console.log(szDeviceIdentify)
+	        console.log(iChannelID)
+	        console.log(szStartTime)
+	        console.log(szEndTime)
+	        console.log(null == szDeviceIdentify)
+	    if (null == szDeviceIdentify) {
+	        return;
+	    }
+
+
+	    if (0 == iType) {// 首次搜索
+	        $("#searchlist").empty();
+	        g_iSearchTimes = 0;
+	    }
+
+	    WebVideoCtrl.I_RecordSearch(szDeviceIdentify, iChannelID, szStartTime, szEndTime, {
+	        iSearchPos: g_iSearchTimes * 40,
+	        success: function (xmlDoc) {
+	        	console.log(xmlDoc)
+	            if ("MORE" === $(xmlDoc).find("responseStatusStrg").eq(0).text()) {
+	                
+	                for(var i = 0, nLen = $(xmlDoc).find("searchMatchItem").length; i < nLen; i++) {
+	                    var szPlaybackURI = $(xmlDoc).find("playbackURI").eq(i).text();
+	                    if(szPlaybackURI.indexOf("name=") < 0) {
+	                        break;
+	                    }
+	                    var szStartTime = $(xmlDoc).find("startTime").eq(i).text();
+	                    var szEndTime = $(xmlDoc).find("endTime").eq(i).text();
+	                    var szFileName = szPlaybackURI.substring(szPlaybackURI.indexOf("name=") + 5, szPlaybackURI.indexOf("&size="));
+
+	                    var objTr = $("#searchlist").get(0).insertRow(-1);
+	                    var objTd = objTr.insertCell(0);
+	                    objTd.id = "downloadTd" + i;
+	                    objTd.innerHTML = g_iSearchTimes * 40 + (i + 1);
+	                    objTd = objTr.insertCell(1);
+	                    objTd.width = "30%";
+	                    objTd.innerHTML = szFileName;
+	                    objTd = objTr.insertCell(2);
+	                    objTd.width = "30%";
+	                    objTd.innerHTML = (szStartTime.replace("T", " ")).replace("Z", "");
+	                    objTd = objTr.insertCell(3);
+	                    objTd.width = "30%";
+	                    objTd.innerHTML = (szEndTime.replace("T", " ")).replace("Z", "");
+	                    objTd = objTr.insertCell(4);
+	                    objTd.width = "10%";
+	                    objTd.innerHTML = "<a href='javascript:;' onclick='clickStartDownloadRecord(" + (i + g_iSearchTimes * 40) + ");'>下载</a>";
+	                    $("#downloadTd" + (i + g_iSearchTimes * 40)).data("fileName", szFileName);
+	                    $("#downloadTd" + (i + g_iSearchTimes * 40)).data("playbackURI", szPlaybackURI);
+	                }
+
+	                g_iSearchTimes++;
+	                clickRecordSearch(1,iStreamType);// 继续搜索
+	            } else if ("OK" === $(xmlDoc).find("responseStatusStrg").eq(0).text()) {
+	                var iLength = $(xmlDoc).find("searchMatchItem").length;
+	                for(var i = 0; i < iLength; i++) {
+	                    var szPlaybackURI = $(xmlDoc).find("playbackURI").eq(i).text();
+	                    if(szPlaybackURI.indexOf("name=") < 0) {
+	                        break;
+	                    }
+	                    var szStartTime = $(xmlDoc).find("startTime").eq(i).text();
+	                    var szEndTime = $(xmlDoc).find("endTime").eq(i).text();
+	                    var szFileName = szPlaybackURI.substring(szPlaybackURI.indexOf("name=") + 5, szPlaybackURI.indexOf("&size="));
+
+	                    var objTr = $("#searchlist").get(0).insertRow(-1);
+	                    var objTd = objTr.insertCell(0);
+	                    objTd.id = "downloadTd" + i;
+	                    objTd.innerHTML = g_iSearchTimes * 40 + (i + 1);
+	                    objTd = objTr.insertCell(1);
+	                    objTd.width = "30%";
+	                    objTd.innerHTML = szFileName;
+	                    objTd = objTr.insertCell(2);
+	                    objTd.width = "30%";
+	                    objTd.innerHTML = (szStartTime.replace("T", " ")).replace("Z", "");
+	                    objTd = objTr.insertCell(3);
+	                    objTd.width = "30%";
+	                    objTd.innerHTML = (szEndTime.replace("T", " ")).replace("Z", "");
+	                    objTd = objTr.insertCell(4);
+	                    objTd.width = "10%";
+	                    objTd.innerHTML = "<a href='javascript:;' onclick='clickStartDownloadRecord(" + (i + g_iSearchTimes * 40) + ");'>下载</a>";
+	                    $("#downloadTd" + (i + g_iSearchTimes * 40)).data("fileName", szFileName);
+	                    $("#downloadTd" + (i + g_iSearchTimes * 40)).data("playbackURI", szPlaybackURI);
+	                }
+	                layer.msg(szDeviceIdentify + " 搜索录像文件成功！",{offset:'b'});
+	            } else if("NO MATCHES" === $(xmlDoc).find("responseStatusStrg").eq(0).text()) {
+	                setTimeout(function() {
+	                    layer.msg(szDeviceIdentify + " 没有录像文件！",{offset:'b'});
+	                }, 50);
+	            }
+	        },
+	        error: function (status, xmlDoc) {
+	        	console.log(status)
+	        	console.log(xmlDoc)
+	            layer.msg(szDeviceIdentify + " 搜索录像文件失败！", status, xmlDoc,{offset:'b'});
+	        }
+	    });
+	}
+	function preview(id){
+		console.log(id)
+		var oWndInfo = WebVideoCtrl.I_GetWindowStatus(g_iWndIndex);
+		if (oWndInfo != null) {// 已经在播放了，先停止
+			WebVideoCtrl.I_Stop();
+		}
+
+		WebVideoCtrl.I_StartRealPlay(oLiveView.szIP, {//预览
+			iWndIndex:g_iWndIndex,
+			iStreamType: oLiveView.iStreamType,
+			iChannelID: parseInt(id,10),
+			bZeroChannel: oLiveView.bZeroChannel
+		});
+    }
+    
+
+    //根据屏幕分割数重组数组
+    function recombinationArrByNum (iType,arr) {
+        // console.log(JSON.stringify(arr))
+        videoChannelList=[];
+        var num;
+        switch (iType) {
+            case 1:
+                num=1;
+                break;
+            case 2:
+                num=4;
+                break;
+            case 3:
+                num=9;
+                break;
+            case 4:
+                num=16;
+                break;
+        }
+        if (arr.length>num) {
+            if(arr.length%num==0){
+                PageCount=parseInt(arr.length/num);
+            }else{
+                PageCount=parseInt(arr.length/num)+1;
+            }
+            for (let i = 1; i <= PageCount; i++) {
+                let childArr=[];
+                for (let j = (i-1)*num; j < num*i; j++) {
+                    childArr.push(arr[j]);
+                }
+                videoChannelList.push(childArr);                    
+            }
+                
+            console.log(videoChannelList);
+        }else{
+            videoChannelList.push(arr);
+        }
+
+    }
+    
+    // 开始预览
+    function StartRealPlay() {
+        console.log('预览前输出：'+JSON.stringify(videoChannelList[channelPage]))
+        var szDeviceIdentify = oLiveView.szIP ;
+        for (var i = 0; i < videoChannelList[channelPage].length; i++) {
+            // g_iWndIndex=i;
+            WebVideoCtrl.I_StartRealPlay(szDeviceIdentify, {//预览
+                iWndIndex:i,
+                iStreamType: oLiveView.iStreamType,
+                iChannelID: parseInt(videoChannelList[channelPage][i].channelNo,10),
+                bZeroChannel: oLiveView.bZeroChannel
+            });
+        }
+        
+    }
+
+    // 停止预览
+    function clickStopRealPlay() {
+        for (let i = 0; i < iType*iType; i++) {
+            var oWndInfo = WebVideoCtrl.I_GetWindowStatus(i),
+                szInfo = "";
+                
+            if (oWndInfo != null) {
+                var iRet = WebVideoCtrl.I_Stop(i);
+                if (0 == iRet) {
+                    // szInfo = "窗口"+i+"停止预览成功！";
+                } else {
+                    // szInfo = "窗口"+i+"停止预览失败！";
+                }
+                layer.msg(szInfo,{offset:'b'});
+            }
+        }
+    }
+
+    // 下载录像
+    var iDownloadID = -1;
+    var tDownloadProcess = 0;
+    function clickStartDownloadRecord(i) {
+        var szIP = oLiveView.szIP,
+            szChannelID = parseInt(videoChannelList[channelPage][g_iWndIndex].channelNo, 10),
+            szFileName = szIP + "_" + szChannelID + "_" + new Date().getTime(),
+            szPlaybackURI = $("#downloadTd" + i).data("playbackURI");
+
+        if ("" == szIP) {
+            return;
+        }
+
+        iDownloadID = WebVideoCtrl.I_StartDownloadRecord(szIP, szPlaybackURI, szFileName);
+
+        if (iDownloadID < 0) {
+            var iErrorValue = WebVideoCtrl.I_GetLastError();
+            if (34 == iErrorValue) {
+                layer.msg(szIP + " 已下载！",{offset:'b'});
+            } else if (33 == iErrorValue) {
+                layer.msg(szIP + " 空间不足！",{offset:'b'});
+            } else {
+                layer.msg(szIP + " 下载失败！",{offset:'b'});
+            }
+        } else {
+            // $("<div id='downProcess' class='freeze'></div>").appendTo("body");
+            tDownloadProcess = setInterval("downProcess(" + i + ")", 1000);
+        }
+    }
+    // 下载进度
+    function downProcess() {
+        var iStatus = WebVideoCtrl.I_GetDownloadStatus(iDownloadID);
+        if (0 == iStatus) {
+            // $("#downProcess").css({
+            //     width: $("#searchlist").width() + "px",
+            //     height: "100px",
+            //     lineHeight: "100px",
+            //     left: $("#searchlist").offset().left + "px",
+            //     top: $("#searchlist").offset().top + "px"
+            // });
+            var iProcess = WebVideoCtrl.I_GetDownloadProgress(iDownloadID);
+            if (iProcess < 0) {
+                clearInterval(tDownloadProcess);
+                tDownloadProcess = 0;
+                m_iDownloadID = -1;
+            } else if (iProcess < 100) {
+                // $("#downProcess").text(iProcess + "%");
+                
+                layer.msg(iProcess + "%",{offset:'b'});
+            } else {
+                // $("#downProcess").text("100%");
+                layer.msg("100%",{offset:'b'});
+                
+                // setTimeout(function () {
+                //     $("#downProcess").remove();
+                // }, 1000);
+
+                WebVideoCtrl.I_StopDownloadRecord(iDownloadID);
+
+                        layer.msg("录像下载完成",{offset:'b'});
+                clearInterval(tDownloadProcess);
+                tDownloadProcess = 0;
+                m_iDownloadID = -1;
+            }
+        } else {
+            WebVideoCtrl.I_StopDownloadRecord(iDownloadID);
+
+            clearInterval(tDownloadProcess);
+            tDownloadProcess = 0;
+            iDownloadID = -1;
+        }
+    }
+    // 打开选择框 0：文件夹  1：文件
+    function clickOpenFileDlg(id, type) {
+        var szDirPath = WebVideoCtrl.I_OpenFileDlg(type);
+        
+        if (szDirPath != -1 && szDirPath != "" && szDirPath != null) {
+            $("#" + id).val(szDirPath);
+        }
+    }
+    // 获取本地参数
+    function clickGetLocalCfg() {
+        var xmlDoc = WebVideoCtrl.I_GetLocalCfg();
+        $("#recordPath").val($(xmlDoc).find("RecordPath").eq(0).text());//
+        $("#downloadPath").val($(xmlDoc).find("DownloadPath").eq(0).text());//
+        $("#previewPicPath").val($(xmlDoc).find("CapturePath").eq(0).text());//
+
+        layer.msg("本地配置获取成功！",{offset:'b'});
+    }
+
+    // 设置本地参数
+    function clickSetLocalCfg() {
+        console.log(1111)
+        var arrXml = [],
+            szInfo = "";
+        
+        arrXml.push("<LocalConfigInfo>");
+        arrXml.push("<RecordPath>" + $("#recordPath").val() + "</RecordPath>");//
+        arrXml.push("<CapturePath>" + $("#previewPicPath").val() + "</CapturePath>");//
+        arrXml.push("<DownloadPath>" + $("#downloadPath").val() + "</DownloadPath>");//
+        arrXml.push("</LocalConfigInfo>");
+
+        var iRet = WebVideoCtrl.I_SetLocalCfg(arrXml.join(""));
+
+        if (0 == iRet) {
+            szInfo = "本地配置设置成功！";
+        } else {
+            szInfo = "本地配置设置失败！";
+        }
+        layer.msg(szInfo,{offset:'b'});
+    }
+
+window.onload=function (){
+	// 检查插件是否已经安装过
+	if (-1 == WebVideoCtrl.I_CheckPluginInstall()) {
+		alert("您还未安装过插件，双击开发包目录里的WebComponents.exe安装！");
+		return;
+	}
+	    // 初始化插件参数及插入插件
+	    WebVideoCtrl.I_InitPlugin(oPlugin.iWidth, oPlugin.iHeight, {
+	        // bWndFull: true,     //是否支持单窗口双击全屏，默认支持 true:支持 false:不支持
+	        // iPackageType: 2,    //2:PS 11:MP4
+	        iWndowType: iType,
+	        cbSelWnd: function (xmlDoc) {
+	            g_iWndIndex = parseInt($(xmlDoc).find("SelectWnd").eq(0).text(), 10);
+	            var szInfo = "当前选择的窗口编号：" + g_iWndIndex;
+	            console.log(szInfo);
+	        }
+        });
+        recombinationArrByNum(iType,ChannelList);
+	    WebVideoCtrl.I_InsertOBJECTPlugin("divPlugin");
+        // 登录设备
+        WebVideoCtrl.I_Login(oLiveView.szIP, 1, oLiveView.szPort, oLiveView.szUsername, oLiveView.szPassword, {
+            success: function (xmlDoc) {
+            	console.log(2222)
+            	// getChannelInfo();
+                StartRealPlay();
+                clickGetLocalCfg();//获取本地参数
+                
+                
+            },
+	        error: function (status, xmlDoc) {
+	            console.log( " 登录失败！")
+	        }
+        });
+
+        // 获取通道
+		// function getChannelInfo() {
+		//     var szIP = oLiveView.szIP,
+		//         iAnalogChannelNum = 0;
+		//         // oSel = $("#channels").empty();
+        //     if ("" == szIP) {
+        //         return;
+        //     }
+
+
+        //     // 模拟通道
+        //     WebVideoCtrl.I_GetAnalogChannelInfo(szIP, {
+        //         async: false,
+        //         success: function (xmlDoc) {
+        //             iAnalogChannelNum = $(xmlDoc).find("VideoInputChannel").length;
+        //         },
+        //         error: function () {
+                    
+        //         }
+        //     });
+
+		//     // 数字通道
+        //     WebVideoCtrl.I_GetDigitalChannelInfo(szIP, {
+        //         async: false,
+        //         success: function (xmlDoc) {
+        //             var oChannels = $(xmlDoc).find("InputProxyChannelStatus");
+        //             console.log(oChannels)
+        //             $.each(oChannels, function () {
+        //                 var id = parseInt($(this).find("id").eq(0).text(), 10);
+        //                 ChannelList.push({
+        //                     id:id
+        //                 });
+        //             });
+        //             recombinationArrByNum(4,ChannelList);
+
+        //             console.log(szIP + " 获取数字通道成功！");
+        //         },
+        //         error: function () {
+        //             console.log(szIP + " 没有数字通道！");
+        //         }
+        //     });
+        // }
+
+
+
+
+}
+
+</script>
+</html>
